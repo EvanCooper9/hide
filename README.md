@@ -1,6 +1,11 @@
 # clean
 quickly &amp; easily hide/show the contents of a directory
 
+## Demo
+<p align="center">
+  <img src="clean_demo.gif"/>
+</p>
+
 ## Installation
 ### [Download](https://github.com/EvanCooper9/clean/archive/master.zip)
 ```
