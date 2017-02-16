@@ -7,7 +7,7 @@ quickly &amp; easily hide/show the contents of a directory
 </p>
 
 ## Installation
-## [Homebrew approval pending](https://github.com/Homebrew/homebrew-core/pull/10043)
+### [Homebrew approval pending](https://github.com/Homebrew/homebrew-core/pull/10043)
 
 ### [Download](https://github.com/EvanCooper9/hide/archive/master.zip)
 ```
