@@ -1,0 +1,65 @@
+#!/bin/bash
+
+if [ "$1" = "initial" ]; then
+	echo ""
+	echo "Thank you for installing hide!"
+	echo ""
+	exit 0
+else
+	echo ""
+	echo "$(cat "/usr/local/Cellar/hide/1.0/INFO")"
+	echo ""
+
+	ANS=""
+
+	# load config
+	source /usr/local/Cellar/hide/1.0/CONFIG
+
+	SET="Y"
+	DEST="Desktop/"
+	LAST="H"
+
+	echo "Thank you for installing hide!"
+
+	while [ "$ANS" = "" ]; do
+		read -p "Would you like to enable Auto hide (y/n)? " ANS
+		if [ "$ANS" = "y" ] || [ "$ANS" = "n" ] || [ "$ANS" = "Y" ] || [ "$ANS" = "N" ]; then
+			if [ "$ANS" = "y" ] || [ "$ANS" = "Y" ]; then
+				AUTO="Y"
+			else
+				AUTO="N"
+			fi
+			break
+		else
+			echo "Please respond with y/n..."
+			ANS=""
+		fi
+	done
+
+	ANS=""
+	while [ "$ANS" = "" ]; do
+		cd
+		read -e -p "What directory would you like to hide? " ANS
+		if [ -d "$ANS" ]; then
+			DEST="$ANS"
+		else
+			echo "Not a valid directory..."
+			ANS=""
+		fi
+	done
+
+	function throw_permission_error() {
+		bold=$(tput bold)
+		normal=$(tput sgr0)
+		echo ""
+		echo "${bold}Please add read write permissions to hide's config${normal}"
+		echo "   chmod 777 /usr/local/Cellar/hide/1.0/CONFIG"
+		echo ""
+	}
+
+	#write changes to config
+	echo "SET=$SET
+	DEST=$DEST
+	AUTO=$AUTO
+	LAST=$LAST" > /usr/local/Cellar/hide/1.0/CONFIG || throw_permission_error
+fi

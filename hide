@@ -1,0 +1,115 @@
+#!/bin/bash
+
+# load config
+source /usr/local/Cellar/hide/1.0/CONFIG
+
+# setup, if needed
+if [ "$SET" != "Y" ]; then
+	source /usr/local/Cellar/hide/1.0/configure
+fi
+
+function change() {
+	if [ "$1" == "S" ]; then
+		COMMAND="chflags -R nohidden"
+		LAST="S"
+	else
+		COMMAND="chflags -R hidden"
+		LAST="H"
+	fi
+	cd
+	for file in "$DEST"/*; do
+		MATCH="F"
+		if [ "$IGNORE" != "" ]; then
+			for i in "${IGNORE[@]}"; do
+				if [ "$file" == "$DEST/$i" ]; then
+					MATCH="T"
+				fi
+			done
+			if [ "$MATCH" == "F" ]; then
+				eval "$COMMAND '$file'"
+			fi
+		else
+			eval "$COMMAND '$file'"
+		fi
+	done
+}
+
+if [ "$1" != "-s" ] && [ "$1" != "-h" ] && [ "$1" != "-d" ] && [ "$1" != "-D" ] && [ "$1" != "-a" ] && [ "$1" != "-A" ] && [ "$AUTO" = "N" ] && [ "$1" != "-i" ] && [ "$1" != "-r" ]; then
+	# validate the command
+	echo "$(cat "/usr/local/Cellar/hide/1.0/INFO")"
+elif [ "$AUTO" = "Y" ] && [ "$1" = "" ]; then
+	# Auto hide
+	cd
+	if [ "$LAST" = "S" ]; then
+		change "H"
+	else
+		change "S"
+	fi
+else
+	# option logic
+	if [ "$1" = "-s" ]; then
+		change "S"
+	elif [ "$1" = "-h" ]; then
+		change "h"
+	elif [ "$1" = "-D" ]; then
+		# show active directory
+		echo "Directory to hide is: $DEST"
+	elif [ "$1" = "-A" ]; then
+		# show if Auto hide is enabled
+		if [ "$AUTO" = "Y" ]; then
+			echo "Auto hide is currently enabled"
+		else
+			echo "Auto hide is currently disabled"
+		fi
+	elif [ "$1" = "-a" ]; then
+		# enable/disable Auto hide
+		if [ "$AUTO" = "Y" ]; then
+			AUTO="N";
+			echo "Auto hide is now disabled"
+		else
+			AUTO="Y";
+			echo "Auto hide is now enabled"
+		fi
+	elif [ "$1" = "-i" ]; then
+		# display info page
+		echo "$(cat "/usr/local/Cellar/hide/1.0/INFO")"
+	elif [ "$1" = "-d" ]; then
+		# change active directory
+		if [ -d "$2" ]; then
+			DEST="$2"
+			echo "Directory to hide changed to: $2"
+		else
+			echo "Invalid directory... no changes applied"
+		fi
+	elif [ "$1" = "-r" ]; then
+		# reset defaults
+		echo "Reverting hide to defaults."
+		echo "Please run hide without options to re-run setup."
+		SET=N
+	else
+		# unknown error
+		echo "Something went wrong!"
+		echo "Run hide with -r to restore hide to defaults"
+	fi
+fi
+
+function throw_permission_error() {
+	bold=$(tput bold)
+	normal=$(tput sgr0)
+	echo ""
+	echo "${bold}Please add read write permissions to hide's config${normal}"
+	echo "   chmod 777 /usr/local/Cellar/hide/1.0/CONFIG"
+	echo ""
+}
+
+# write changes to config
+echo "SET=$SET
+DEST=$DEST
+AUTO=$AUTO
+LAST=$LAST" > /usr/local/Cellar/hide/1.0/CONFIG || throw_permission_error
+
+IGNORE_CNT=0;
+for i in "${IGNORE[@]}"; do
+	echo "IGNORE[$IGNORE_CNT]=\"$i\"" >> /usr/local/Cellar/hide/1.0/CONFIG || throw_permission_error
+	let "IGNORE_CNT++"
+done

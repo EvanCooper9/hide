@@ -1,16 +1,15 @@
-Clean v1.0
+hide v1.0
 
-Syntax: clean [-s] | [-h] | [-d DEST] | [-D] | [-a] | [-A] | [-i] | [-r]
+Syntax: hide [-s] | [-h] | [-d DEST] | [-D] | [-a] | [-A] | [-i] | [-r]
 
 Options:
   -s SHOW       Show the files of the current profile
   -h HIDE       Hide the files of the current profile
   -d DEST       Change the current destination
   -D SHOW DEST  Show the current destination
-  -a AUTO CLEAN Enable/disable Auto Clean: show/hide based on the current state
-  -A SHOW AUTO  Show if auto clean is enabled/disabled
-  -i INFO       Show clean info page (Only really useful when Auto Clean is enabled)
-  -r DEFAULTS   Restore Clean to defaults
+  -a AUTO hide Enable/disable Auto hide: show/hide based on the current state
+  -A SHOW AUTO  Show if auto hide is enabled/disabled
+  -i INFO       Show hide info page (Only really useful when Auto hide is enabled)
+  -r DEFAULTS   Restore hide to defaults
 
-Clean is a tool to easily show or hide files from a certain directory.
-It's recommended to add an alias to Clean in your .bash_profile
+hide is a tool to easily show or hide files from a certain directory.
