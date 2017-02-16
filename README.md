@@ -3,7 +3,7 @@ quickly &amp; easily hide/show the contents of a directory
 
 ## Demo
 <p align="center">
-  <img src="https://drive.google.com/file/d/0B5Yw7X-K1mhfY0xGVXNVMTRXV2c/view?usp=sharing"/>
+  <img src="https://drive.google.com/uc?export=download&id=0B5Yw7X-K1mhfY0xGVXNVMTRXV2c"/>
 </p>
 
 ## Installation
