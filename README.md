@@ -1,4 +1,4 @@
-# clean
+# hide
 quickly &amp; easily hide/show the contents of a directory
 
 ## Demo
@@ -7,48 +7,40 @@ quickly &amp; easily hide/show the contents of a directory
 </p>
 
 ## Installation
-### [Download](https://github.com/EvanCooper9/clean/archive/master.zip)
+## [Homebrew approval pending](https://github.com/Homebrew/homebrew-core/pull/10043)
+
+### [Download](https://github.com/EvanCooper9/hide/archive/master.zip)
 ```
-wget https://github.com/EvanCooper9/clean/archive/master.zip
+wget https://github.com/EvanCooper9/hide/archive/master.zip
 ```
 
 ### PATH
  * Place in desired directory
- * Add to your .bash_profile : `PATH=$PATH:/full/path/to/clean`
+ * Add to your .bash_profile : `PATH=$PATH:/full/path/to/hide`
 
 ### Setup
 ```
-clean
-> Thank you for installing Clean!
-> Would you like to enable Auto Clean (y/n)? y
-> What directory would you like to Clean ~/Desktop
+hide
+> Thank you for installing hide!
+> Would you like to enable Auto hide (y/n)? y
+> What directory would you like to hide ~/Desktop
 ```
 
 ## Usage
 ```
-clean [-s] | [-h] | [-d DEST] | [-D] | [-a] | [-A] | [-i] | [-r]
+hide [-s] | [-h] | [-d DEST] | [-D] | [-a] | [-A] | [-i] | [-r]
 ```
 
 ### Options
   * `-s` Show the files of the current profile
   * `-h` Hide the files of the current profile
-  * `-d DEST` Change the current destination. Where `DEST` is the destination to clean
+  * `-d  DEST` Change the current destination. Where `DEST` is the destination to hide
   * `-D` Show the current destination
-  * `-a` Enable/disable Auto Clean: show/hide based on the current state
-  * `-A` Show if auto clean is enabled/disabled
-  * `-i` Show clean info page (Only really useful when Auto Clean is enabled)
-  * `-r` Restore Clean to defaults
+  * `-a` Enable/disable Auto hide: show/hide based on the current state
+  * `-A` Show if auto hide is enabled/disabled
+  * `-i` Show hide info page (Only really useful when Auto hide is enabled)
+  * `-r` Restore hide to defaults
 
 ## Features
-### Auto Clean
-Auto clean eliminates the need for the `-s` and `-h` flags. It will automatically hide/show the files from the current destination based on the current state. Simple type `clean` and the rest will be taken care of.
-
-### Ignoring files
-To have clean ignore files, add the `IGNORE` array variable to the `CONFIG` file. Adding multiple files/directories is easy.
-```
-# CONFIG
-...
-IGNORE[0]="file1.png"
-IGNORE[1]="file2.txt"
-...
-```
+### Auto hide
+Auto hide eliminates the need for the `-s` and `-h` flags. It will automatically hide/show the files from the current destination based on the current state. Simple type `hide` and the rest will be taken care of.
