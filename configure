@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# get local dir
+DIR="$( cd "$( dirname "$0" )" && pwd)"
+
 if [ "$1" = "initial" ]; then
 	echo ""
 	echo "Thank you for installing hide!"
@@ -7,13 +10,13 @@ if [ "$1" = "initial" ]; then
 	exit 0
 else
 	echo ""
-	echo "$(cat "/usr/local/Cellar/hide/1.0/INFO")"
+	echo "$(cat "${DIR}/INFO")"
 	echo ""
 
 	ANS=""
 
 	# load config
-	source /usr/local/Cellar/hide/1.0/CONFIG
+	source ${DIR}/CONFIG
 
 	SET="Y"
 	DEST="Desktop/"
@@ -53,7 +56,7 @@ else
 		normal=$(tput sgr0)
 		echo ""
 		echo "${bold}Please add read write permissions to hide's config${normal}"
-		echo "   chmod 777 /usr/local/Cellar/hide/1.0/CONFIG"
+		echo "   chmod 777 ${DIR}/CONFIG"
 		echo ""
 	}
 
@@ -61,5 +64,5 @@ else
 	echo "SET=$SET
 	DEST=$DEST
 	AUTO=$AUTO
-	LAST=$LAST" > /usr/local/Cellar/hide/1.0/CONFIG || throw_permission_error
+	LAST=$LAST" > ${DIR}/CONFIG || throw_permission_error
 fi

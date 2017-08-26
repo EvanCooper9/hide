@@ -1,11 +1,14 @@
 #!/bin/bash
 
+# get local dir
+DIR="$( cd "$( dirname "$0" )" && pwd)"
+
 # load config
-source /usr/local/Cellar/hide/1.0/CONFIG
+source $DIR/CONFIG
 
 # setup, if needed
 if [ "$SET" != "Y" ]; then
-	source /usr/local/Cellar/hide/1.0/configure
+	source $DIR/configure
 fi
 
 function change() {
@@ -36,7 +39,7 @@ function change() {
 
 if [ "$1" != "-s" ] && [ "$1" != "-h" ] && [ "$1" != "-d" ] && [ "$1" != "-D" ] && [ "$1" != "-a" ] && [ "$1" != "-A" ] && [ "$AUTO" = "N" ] && [ "$1" != "-i" ] && [ "$1" != "-r" ]; then
 	# validate the command
-	echo "$(cat "/usr/local/Cellar/hide/1.0/INFO")"
+	echo "$(cat "${DIR}/INFO")"
 elif [ "$AUTO" = "Y" ] && [ "$1" = "" ]; then
 	# Auto hide
 	cd
@@ -72,7 +75,7 @@ else
 		fi
 	elif [ "$1" = "-i" ]; then
 		# display info page
-		echo "$(cat "/usr/local/Cellar/hide/1.0/INFO")"
+		echo "$(cat "${DIR}/INFO")"
 	elif [ "$1" = "-d" ]; then
 		# change active directory
 		if [ -d "$2" ]; then
@@ -98,7 +101,7 @@ function throw_permission_error() {
 	normal=$(tput sgr0)
 	echo ""
 	echo "${bold}Please add read write permissions to hide's config${normal}"
-	echo "   chmod 777 /usr/local/Cellar/hide/1.0/CONFIG"
+	echo "   chmod 777 {$DIR}/CONFIG"
 	echo ""
 }
 
@@ -106,10 +109,10 @@ function throw_permission_error() {
 echo "SET=$SET
 DEST=$DEST
 AUTO=$AUTO
-LAST=$LAST" > /usr/local/Cellar/hide/1.0/CONFIG || throw_permission_error
+LAST=$LAST" > $DIR/CONFIG || throw_permission_error
 
 IGNORE_CNT=0;
 for i in "${IGNORE[@]}"; do
-	echo "IGNORE[$IGNORE_CNT]=\"$i\"" >> /usr/local/Cellar/hide/1.0/CONFIG || throw_permission_error
+	echo "IGNORE[$IGNORE_CNT]=\"$i\"" >> $DIR/CONFIG || throw_permission_error
 	let "IGNORE_CNT++"
 done
